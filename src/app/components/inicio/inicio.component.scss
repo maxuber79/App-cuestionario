@@ -1,0 +1,28 @@
+.contenedor {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+	width: 100vw;
+}
+
+.input-ingresar {
+  width: 195px;
+  text-align: center;
+  height: 3.125rem;
+  font-size: 1.25rem;
+}
+
+.btn-ingresar {
+	width: 195px;
+}
+
+.link {
+	color: #000;
+	text-decoration: none;
+	font-weight: bold;
+}
+.text {
+	color: #000;
+}
