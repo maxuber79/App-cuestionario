@@ -4,8 +4,8 @@ import { LoginComponent } from './login/login.component';
 import { RecoveryPasswordComponent } from './recovery-password/recovery-password.component';
 import { RegisterComponent } from './register/register.component';
 
-const routes: Routes = [
-
+const routes: Routes = [ 
+	{ path: '', component: LoginComponent },  
 	{ path: 'login', component: LoginComponent },
 	{ path: 'recuperarPassword', component: RecoveryPasswordComponent },
 	{ path: 'register', component:  RegisterComponent }

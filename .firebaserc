@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "quizz-bdf47": {
+      "hosting": {
+        "empleados": [
+          "quizz-bdf47"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "quizz-bdf47"
+  }
+}

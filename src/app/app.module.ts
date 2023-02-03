@@ -6,6 +6,10 @@ import { AppComponent } from './app.component';
 import { InicioComponent } from './components/inicio/inicio.component';
 import { SpinnerComponent } from './shared/spinner/spinner.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AngularFireModule } from '@angular/fire/compat';
+import { environment } from '../environments/environment';
+import { AngularFireAuthModule } from "@angular/fire/compat/auth";
+
 
 @NgModule({
   declarations: [
@@ -17,7 +21,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     BrowserModule,
     AppRoutingModule,
 		FormsModule, 
-		ReactiveFormsModule
+		ReactiveFormsModule,
+		AngularFireModule.initializeApp(environment.firebase),
+		AngularFireAuthModule
   ],
 	exports: [
 		InicioComponent

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AngularFireAuth  } from '@angular/fire/compat/auth';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -9,7 +11,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class RegisterComponent implements OnInit {
 registerForm: FormGroup;
 
-  constructor(private fb: FormBuilder) { 
+  constructor(private fb: FormBuilder, private afAuth:AngularFireAuth, private router: Router) { 
     this.registerForm = this.fb.group({
       usuario: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
@@ -21,7 +23,16 @@ registerForm: FormGroup;
   }
 
   register() {
-    console.log(this.registerForm);
+    //console.log(this.registerForm);
+		const usuario = this.registerForm.get('usuario')?.value;
+		const password = this.registerForm.get('password')?.value;
+		//console.log('[DEBUG] info formulario >>', '[EMAIL] >>',usuario,'[PASS] >>', password);
+		this.afAuth.createUserWithEmailAndPassword(usuario, password).then(rta => {
+			console.log('[DEBUG] reateUserWithEmailAndPassword >>', rta);
+			this.router.navigate(['/usuario']);
+		}).catch( error => {
+			console.error(error);
+		})
   }
 
   checkPassword( group: FormGroup)  {
