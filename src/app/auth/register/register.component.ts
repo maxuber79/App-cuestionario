@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AngularFireAuth  } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-register',
@@ -9,14 +10,23 @@ import { Router } from '@angular/router';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
-registerForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private afAuth:AngularFireAuth, private router: Router) { 
+
+	registerForm: FormGroup;
+	loading: boolean = false
+
+  constructor(
+		private fb: FormBuilder,
+		private afAuth:AngularFireAuth,
+		private router: Router,
+		private toastr: ToastrService
+		) { 
     this.registerForm = this.fb.group({
       usuario: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       repetirPassword: ['']
-    }, { validator: this.checkPassword })
+    }, 
+		{ validator: this.checkPassword })
   }
 
   ngOnInit(): void {
@@ -27,13 +37,37 @@ registerForm: FormGroup;
 		const usuario = this.registerForm.get('usuario')?.value;
 		const password = this.registerForm.get('password')?.value;
 		//console.log('[DEBUG] info formulario >>', '[EMAIL] >>',usuario,'[PASS] >>', password);
-		this.afAuth.createUserWithEmailAndPassword(usuario, password).then(rta => {
+
+		this.loading = true;
+		this.afAuth.createUserWithEmailAndPassword(usuario, password).then( rta => {
 			console.log('[DEBUG] reateUserWithEmailAndPassword >>', rta);
+			this.toastr.success('El usuario fue registrado con éxito!', 'Usuario registrado!');
 			this.router.navigate(['/usuario']);
 		}).catch( error => {
 			console.error(error);
+			this.loading = false;
+			this.toastr.error(this.error(error.code),'Error');
 		})
   }
+
+	error(code: string): string {
+		switch(code) {
+			// Email ya registrado
+			case 'auth/email-already-in-use':
+				return 'El correo ya esta registrado'
+
+			//Correo invalido
+			case 'auth/invalid-email':
+				return 'El email es inválido'
+			
+				//Contraseña debil
+			case 'auth/weak-password':
+				return 'La contraseña es muy debil'
+
+			default:
+				return 'Error desconocido';
+		}
+	}
 
   checkPassword( group: FormGroup)  {
 		const pass = group.controls['password'].value;

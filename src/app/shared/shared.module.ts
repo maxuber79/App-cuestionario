@@ -16,6 +16,8 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 		ReactiveFormsModule
   ],
 	exports: [
+		ReactiveFormsModule, 
+		FormsModule,
 		SpinnerComponent		
 	]
 })
