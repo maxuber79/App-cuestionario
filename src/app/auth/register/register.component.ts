@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AngularFireAuth  } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { ErrorService } from 'src/app/services/error.service';
 
 @Component({
   selector: 'app-register',
@@ -13,13 +14,14 @@ export class RegisterComponent implements OnInit {
 
 
 	registerForm: FormGroup;
-	loading: boolean = false
+	loading: boolean = false;
 
   constructor(
 		private fb: FormBuilder,
 		private afAuth:AngularFireAuth,
 		private router: Router,
-		private toastr: ToastrService
+		private toastr: ToastrService,
+		private _errorservice: ErrorService
 		) { 
     this.registerForm = this.fb.group({
       usuario: ['', [Validators.required, Validators.email]],
@@ -40,17 +42,19 @@ export class RegisterComponent implements OnInit {
 
 		this.loading = true;
 		this.afAuth.createUserWithEmailAndPassword(usuario, password).then( rta => {
-			console.log('[DEBUG] reateUserWithEmailAndPassword >>', rta);
-			this.toastr.success('El usuario fue registrado con éxito!', 'Usuario registrado!');
+			//console.log('[DEBUG] reateUserWithEmailAndPassword >>', rta);
+			rta.user?.sendEmailVerification();
+			this.toastr.success('Enviamos un correo electrónico para verificar su cuenta!', 'Usuario registrado!');
 			this.router.navigate(['/usuario']);
 		}).catch( error => {
 			console.error(error);
+			this.registerForm.reset();
 			this.loading = false;
-			this.toastr.error(this.error(error.code),'Error');
+			this.toastr.error(this._errorservice.error(error.code),'Error');
 		})
   }
 
-	error(code: string): string {
+	/* error(code: string): string {
 		switch(code) {
 			// Email ya registrado
 			case 'auth/email-already-in-use':
@@ -67,7 +71,7 @@ export class RegisterComponent implements OnInit {
 			default:
 				return 'Error desconocido';
 		}
-	}
+	} */
 
   checkPassword( group: FormGroup)  {
 		const pass = group.controls['password'].value;
