@@ -1,0 +1,42 @@
+<div *ngIf="mostrarError" class="alert alert-danger text-center" role="alert" style="border-radius: 0;">
+	Por favor complete todos los campos!
+</div>
+
+<div class="container">
+	<div class="row mt-5">
+		<div class="col-12">
+			<div class="card">
+				<div class="card-header">
+					<p class="text-center">INGRESE LOS DATOS DEL CUESTONORIO</p>
+				</div>
+				<div class="card-body">
+				
+				<form [formGroup]="cuestonarioForm">
+					<div class="row">
+						<div class="col-12">
+							<div class="mb-3">
+								<label for="exampleFormControlInput1" class="form-label">Titulo</label>
+								<input type="text" class="form-control" id="exampleFormControlInput1" formControlName="titulo" placeholder="Ej. ingrese untitulo">
+							</div>
+							
+						</div>
+						<div class="col-12">
+							<div class="mb-3">
+								<label for="exampleFormControlTextarea1" class="form-label">Descripción</label>
+								<textarea class="form-control" id="exampleFormControlTextarea1" rows="3" formControlName="descripcion"></textarea>
+							</div>
+						</div>
+						<div class="col-12 mt-3">
+							<button type="submit" class="btn btn-primary float-end" (click)="siguiente()">Ingresar cuestonario!</button>
+						</div>
+					</div>
+				</form>
+
+
+
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
