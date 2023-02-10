@@ -27,7 +27,7 @@ ngOnInit(): void {
 }
 
 siguiente() {
-	console.log('click en el boton', this.cuestonarioForm);
+	console.log('Valores >>', this.cuestonarioForm.value);
 	if(this.cuestonarioForm.invalid) {
 		this.mostrarError = true;
 

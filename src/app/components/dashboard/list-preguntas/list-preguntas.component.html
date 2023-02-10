@@ -1,1 +1,35 @@
-<p>list-preguntas works!</p>
+<div *ngIf="listPreguntas.length > 0" class="row">
+	<div class="col-12 mt-5">
+
+		 
+			<div *ngFor="let pregunta of listPreguntas; let i = index" class="card mb-2" style="width: 100%;">
+				<div class="card-body">
+					<p class="tituloPregunta text-center">{{i}} {{ pregunta.titulo }}</p>
+					<div class="row">
+						<div class="col-6">
+							<p><span class="badge bg-dark">{{ pregunta.segundos }}s</span></p>
+						</div>
+						<div class="col-6">
+							<p><span class="badge bg-dark">{{ pregunta.puntos }}ptos</span></p>
+						</div>
+						<ul class="list-group ">
+							<li *ngFor="let respuesta of pregunta.listRespuestas" class="list-group-item text-center"
+								[ngClass]="{ 'classCorrecta': respuesta.esCorrecta === true }">
+								{{ respuesta.descripcion }}
+							</li>
+						</ul>
+						<div class="col-12 text-center mt-3">
+							<i (click)="eliminarPregunta(i)" class="bi bi-trash3-fill"></i> 
+						</div>
+					</div>
+				</div>
+			</div>
+		 
+			<div class="row mt-5"> 
+				<div class="col-12 text-center">
+					<button (click)="finalizarCuestionario()" class="btn btn-primary" style="width: 100%;">FINALIZAR CUITIONARIO</button>
+				</div>
+			</div>
+
+	</div>
+</div>

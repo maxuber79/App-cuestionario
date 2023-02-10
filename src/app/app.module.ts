@@ -11,6 +11,7 @@ import { AngularFireAuthModule } from "@angular/fire/compat/auth";
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DashboardModule } from './components/dashboard/dashboard.module';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { DashboardModule } from './components/dashboard/dashboard.module';
 		FormsModule, 
 		ReactiveFormsModule,
 		AngularFireModule.initializeApp(environment.firebase),
-		AngularFireAuthModule,
+		AngularFireAuthModule,//---> Para autentificar
+		AngularFirestoreModule,//---> Para guardar en fireStore
 		ToastrModule.forRoot(),
 		DashboardModule
   ],

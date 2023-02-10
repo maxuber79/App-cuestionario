@@ -1,17 +1,19 @@
+<div *ngIf="mostrarError" class="alert alert-danger text-center" role="alert" style="border-radius: 0;">
+	Por favor complete todos los campos!
+</div>
+
 <div class="container">
 	<div class="row mt-5">
 		<div class="col-12">
-			<div class="card">
-				<div class="card-header">
-					<p class="text-center">INGRESE PREGUNTA</p>
-				</div>
+			<div class="card" style="width: 1024px; margin: 0 auto;">
 				<div class="card-body">
-
-					<form [formGroup]="agregarPregunta" (ngSubmit)="agregar()">
+					<h5 class="card-title">Ingrese pregunta</h5>
+					<hr>
+					<form [formGroup]="agregarPregunta" (ngSubmit)="agregarPreg()">
 						<div class="row">
-							<div class="col-12">
+							<div class="col-12 mt-2">
 								<div class="mb-3">
-									<label for="titulo" class="form-label">Ingrese pregunta</label>
+									<!-- <label for="titulo" class="form-label">Ingrese pregunta</label> -->
 									<input type="text" class="form-control" id="titulo" formControlName="titulo" placeholder="Titulo pregunta" maxlength="150" formControlName="titulo">
 								</div>
 
@@ -42,8 +44,6 @@
 											<input type="text" class="form-control" placeholder="Agregar respuesta 1" aria-label="Agregar respuesta 1" aria-describedby="Agregar-respuesta-1" formControlName="titulo">
 											<span class="input-group-text" id="basic-addon1" (click)="esCorrecta('1')">
 												<i [ngClass]="{ 'bi bi-circle': obtenerEstadoRespuesta('respuesta1') == false, 'bi bi-check-circle animate__animated animate__bounceIn': obtenerEstadoRespuesta('respuesta1') == true }"></i>
-												<!-- <i class="bi bi-circle"></i>
-												<i class="bi bi-check-circle"></i> -->
 											</span>
 										</div>
 
@@ -54,8 +54,7 @@
 											<input type="text" class="form-control" placeholder="Agregar respuesta 2" aria-label="Agregar respuesta 2"
 												aria-describedby="Agregar-respuesta-2" formControlName="titulo">
 											<span class="input-group-text" id="basic-addon1" (click)="esCorrecta('2')">
-													<i
-														[ngClass]="{ 'bi bi-circle': obtenerEstadoRespuesta('respuesta2') == false, 'bi bi-check-circle animate__animated animate__bounceIn': obtenerEstadoRespuesta('respuesta2') == true }"></i>
+													<i [ngClass]="{ 'bi bi-circle': obtenerEstadoRespuesta('respuesta2') == false, 'bi bi-check-circle animate__animated animate__bounceIn': obtenerEstadoRespuesta('respuesta2') == true }"></i>
 											</span>
 										</div>
 
@@ -91,6 +90,7 @@
 							</div>
 						</div>
 					</form>
+					<app-list-preguntas></app-list-preguntas>
 				</div>
 			</div>
 		</div>
